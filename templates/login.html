@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Авторизация</title>
+    <style>
+        body {
+            background: #222;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .login-container {
+            background: #333;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 300px;
+        }
+        input {
+            width: 90%;
+            margin: 10px 0;
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            background: #0af;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        a {
+            display: block;
+            margin-top: 10px;
+            color: #0af;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+    <h2 id="form-title">Авторизация</h2>
+
+    <!-- Форма входа -->
+    <form id="login-form" action="/login" method="POST">
+        <input type="text" id="username" name="username" placeholder="Имя пользователя" required><br>
+        <input type="password" id="password" name="password" placeholder="Пароль" required><br>
+
+        <button type="submit" id="submit-btn">Войти</button>
+    </form>
+    <p id="login-message">{{ error }}</p>
+    <a id="toggle-form" href="#">Зарегистрироваться</a>
+
+    <!-- Форма регистрации (по умолчанию скрыта через CSS) -->
+    <form id="register-form" action="/register" method="POST" style="display:none;">
+        <input type="text" name="username" placeholder="Имя пользователя" required><br>
+        <input type="password" name="password" placeholder="Пароль" required><br>
+        <button type="submit">Зарегистрироваться</button>
+    </form>
+    <p id="register-message"></p>
+</div>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const message = document.getElementById('login-message');
+            const toggleForm = document.getElementById('toggle-form');
+            const formTitle = document.getElementById('form-title');
+            const submitBtn = document.getElementById('submit-btn');
+            const registerForm = document.getElementById('register-form');
+            const loginForm = document.getElementById('login-form');
+
+            let isLogin = true;
+
+            // Переключение между авторизацией и регистрацией (только UI)
+            toggleForm.addEventListener('click', (e) => {
+                e.preventDefault();
+                isLogin = !isLogin;
+                formTitle.textContent = isLogin ? "Авторизация" : "Регистрация";
+                submitBtn.textContent = isLogin ? "Войти" : "Зарегистрироваться";
+                toggleForm.textContent = isLogin ? "Зарегистрироваться" : "Уже есть аккаунт?";
+
+                // Переключаем видимость форм; отправка осуществляется на сервер
+                if (isLogin) {
+                    registerForm.style.display = 'none';
+                    loginForm.style.display = 'block';
+                } else {
+                    registerForm.style.display = 'block';
+                    loginForm.style.display = 'none';
+                }
+
+                message.textContent = "";
+            });
+        });
+    </script>
+</body>
+</html>

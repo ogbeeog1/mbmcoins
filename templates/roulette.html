@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мини-рулетка CS2</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Мини-рулетка CS2</h1>
+        <div>КАЛАБАНКОИНЫ: <span id="coins">{{ coins if coins is not none else 0 }}</span></div>
+    </header>
+
+    <main style="text-align:center; padding:10px;">
+        <div id="roulette-container" style="position:relative; display:inline-block;">
+            
+            <div id="roulette-wrapper">
+    <div id="roulette"></div>
+    <div class="center-line"></div>
+    <div id="highlight" class="highlight" style="display:none;"></div>
+</div>
+
+<div style="text-align:center;">
+  <button id="start-roulette" style="padding:10px 20px; margin-top:50; cursor:pointer; font-weight:bold;">СТАРТ (1000)</button>
+  </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>Разработано студией - Mayskiybezmontazha</p>
+        <p>&copy; Все права защищены, 2k17</p>
+    </footer>
+
+    <script src="static/js/roulette.js"></script>
+<audio id="win-sound" src="{{ url_for('static', filename='audio/win.mp3') }}"></audio>
+
+</body>
+</html>

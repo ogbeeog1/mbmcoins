@@ -1,0 +1,307 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #333;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    background-size: cover; 
+    background-repeat: no-repeat;
+}
+
+header {
+    background-color: #333;
+    padding: 20px;
+    text-align: center;
+    color: white;
+}
+
+nav {
+    background-color: #333;
+    padding: 10px;
+    text-align: center;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border-radius: 5px;
+}
+
+nav a:hover {
+    background-color: #555;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+}
+
+.left-side, .right-side {
+    padding: 20px;
+}
+
+.left-side {
+    width: 25%;
+}
+
+.right-side {
+    width: 70%;
+}
+
+.post-header, .post-body, .service {
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.post-header {
+    background-color: #666;
+}
+
+.post-body {
+    background-color: #444;
+}
+
+.service {
+    background-color: #800000;
+}
+
+.service a {
+    text-decoration: none;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+}
+
+/* Мини-рулетка */
+#roulette img {
+    width: 100px;
+    height: 100px;
+    flex-shrink: 0;
+    transition: transform 3s ease-out;
+}
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #1a1a1a;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(90deg, #ff4d4d, #ffb84d);
+    color: #fff;
+    font-size: 2rem;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+#roulette-container {
+    position: relative;
+    width: 600px;
+    overflow: hidden;
+    border: 3px solid #fff;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.05);
+    box-shadow: 0 0 20px rgba(255,255,255,0.2);
+}
+
+#roulette {
+    display: flex;
+    transition: transform 0.1s linear;
+}
+
+#roulette img {
+    width: 120px;
+    height: 120px;
+    margin: 0 5px;
+    border-radius: 15px;
+    transition: transform 0.2s ease;
+}
+
+#start-roulette {
+    margin-top: 30px;
+    padding: 15px 40px;
+    background: linear-gradient(90deg, #ff4d4d, #ffb84d);
+    border: none;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#start-roulette:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+
+/* Полоска по центру */
+#roulette-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 100%;
+    background: gold;
+    border-radius: 3px;
+    box-shadow: 0 0 10px gold;
+    z-index: 10;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #aaa;
+    font-size: 0.9rem;
+}
+#roulette-wrapper {
+  position: relative;
+  width: 500px;
+  height: 150px; /* фикс высота */
+  margin: 20px auto;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  background: #111;
+  overflow: hidden; /* лишнее скрываем */
+}
+.left-side {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+.service {
+    width: 100%;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('{{ url_for('static', filename='images/1vKBDc8HHkc.jpg') }}');
+    background-size: cover;
+    background-position: center;
+    border-radius: 12px;
+}
+
+.service a {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.burger-btn {
+    padding: 12px;
+    background: #800000;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.burger-btn:hover {
+    background: #a00000;
+}
+
+.burger-menu {
+    display: none; /* изначально скрыто */
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.burger-menu.active {
+    display: flex; /* показываем при клике */
+}
+.left-side {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 250px; /* ширина меню */
+}
+
+/* основная кнопка */
+.service {
+    padding: 15px;
+    text-align: center;
+    background-image: url('{{ url_for('static', filename='images/1vKBDc8HHkc.jpg') }}');
+    background-size: cover;
+    border-radius: 10px;
+}
+
+.service a {
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* кнопка-бургер */
+.burger-btn {
+    font-size: 24px;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #ff4444;
+    color: #fff;
+    transition: 0.3s;
+}
+.burger-btn:hover {
+    background: #ff0000;
+}
+
+/* меню скрыто по умолчанию */
+.burger-menu {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+    background: rgba(0,0,0,0.7);
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.burger-menu a {
+    color: #fff;
+    text-decoration: none;
+    padding: 8px;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+.burger-menu a:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+/* класс активного меню */
+.burger-menu.active {
+    display: flex;
+}

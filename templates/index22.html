@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Майский без Монтажа - Шаблон сайта</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #333;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            background-image: url('{{ url_for('static', filename='images/BvVEfgjzHUo.jpg') }}');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        header {
+            background-color: #333;
+            padding: 20px;
+            text-align: center;
+            background-image: url('{{ url_for('static', filename='images/S1RDBf86MqY.jpg') }}');
+            background-size: cover;
+            background-repeat: no-repeat;
+            color: white;
+        }
+        .left-side {
+            width: 25%;
+            padding: 20px;
+            background-color: #444;
+            background-image: url('{{ url_for('static', filename='images/WNFvzfWB1gc.jpg') }}');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        .right-side {
+            width: 70%;
+            padding: 20px;
+            background-color: #555;
+            background-image: url('{{ url_for('static', filename='images/g2tyFlB12Vg.jpg') }}');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        .post-header {
+            background-color: #666;
+            color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-image: url('{{ url_for('static', filename='images/HjhKNGST64c.jpg') }}');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        .post-body {
+            padding: 20px;
+            background-color: #444;
+            color: #fff;
+            background-image: url('{{ url_for('static', filename='images/qEKatXI_mAM.jpg') }}');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        .service {
+            width: 100%;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background-image: url('{{ url_for('static', filename='images/1vKBDc8HHkc.jpg') }}');
+            background-size: cover;
+            background-position: center;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        .service a {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            color: #fff;
+            font-weight: bold;
+            text-decoration: none;
+            white-space: normal;
+            word-wrap: break-word;
+        }
+
+        /* бургер */
+        .burger-btn {
+            font-size: 24px;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #ff4444;
+            color: #fff;
+            transition: 0.3s;
+            margin-bottom: 10px;
+        }
+        .burger-btn:hover {
+            background: #ff0000;
+        }
+
+        .burger-menu {
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            background: rgba(0,0,0,0.7);
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .burger-menu a {
+            color: #fff;
+            text-decoration: none;
+            padding: 8px;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+        .burger-menu a:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        .burger-menu.active {
+            display: flex;
+        }
+
+        /* навигация */
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            padding: 10px 0;
+            background: rgba(0, 0, 0, 0.7);
+        }
+        nav a {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #ff4444;
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        nav a:hover {
+            background: #ff0000;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+        nav span {
+            color: #fff;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Майский без Монтажа</h1>
+        <p>По всем вопросам обращайтесь: 8 800 555 35 35</p>
+    </header>
+
+    <nav>
+        <a href="{{ url_for('index') }}">Главная</a>
+        <a href="{{ url_for('rozigryshi') }}">Розыгрыши</a>
+        <a href="{{ url_for('stati') }}">Статьи</a>
+        <a href="https://web.telegram.org/k/#-1899308292" target="_blank">Группа</a>
+        <a href="https://web.telegram.org/k/#@mayskiy_predlozhka_bot" target="_blank">Предложения</a>
+        <a href="{{ url_for('roulette') }}">ДЭП</a>
+        <a href="{{ url_for('click') }}">ЗАФАРМИТЬ КОИНЫ</a>
+        {% if user %}
+            <a href="/logout">Выйти</a>
+            <span>Вы вошли как: {{ user }}</span>
+        {% else %}
+            <a href="/login">Авторизоваться</a>
+        {% endif %}
+    </nav>
+
+    <main>
+        <div class="container">
+            <div class="left-side">
+                <!-- Главная кнопка -->
+                <div class="service">
+                    <a href="https://music.yandex.ru/album/23235324" target="_blank">Майский без Монтажа</a>
+                </div>
+                <div class="service">
+                    <a href="https://music.yandex.ru/album/32928229" target="_blank">Майский без Монтажа 2 и 3</a>
+                </div>
+                <div class="service">
+                    <a href="https://music.yandex.ru/album/27129571" target="_blank">Майский без Монтажа 4</a>
+                    </div>
+                <div class="service">
+                    <a href="https://music.yandex.ru/album/32964049" target="_blank">Майский без Монтажа 5</a>
+                </div>
+
+            </div>
+
+            <div class="right-side">
+                <div class="post-header">
+                    <h2>Если волк молчит, лучше его не перебивать</h2>
+                    <p>Вот так вот!!!.</p>
+                    <a href="#">Подробнее</a>
+                </div>
+                <div class="post-body">
+                    <p>Би-бу-бэ-би-би-бу-бу</p>
+                    <p>Майский разработан на основе всем известного Мема про Кубинца</p>
+                    <button id="bibubbe">Би-бу-бэ-би-би-бу-бу</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Разработано студией - Mayskiybezmontazha</p>
+        <p>&copy; Все права защищены, 2k17</p>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-vk"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+        </div>
+    </footer>
+
+    <!-- звук -->
+    <audio id="ggg" src="{{ url_for('static', filename='audio/ggg.mp3') }}"></audio>
+
+    <script>
+        // кнопка с музыкой
+        const bibubbe = document.getElementById('bibubbe');
+        const audio = document.getElementById('ggg');
+        let isPlaying = false;
+
+        bibubbe.addEventListener('click', () => {
+            if (isPlaying) {
+                audio.pause();
+                isPlaying = false;
+                bibubbe.textContent = "Би-бу-бэ-би-би-бу-бу";
+            } else {
+                audio.play();
+                isPlaying = true;
+                bibubbe.textContent = "Пауза";
+            }
+        });
+
+        // бургер-меню
+        document.querySelector('.burger-btn').addEventListener('click', function() {
+            document.querySelector('.burger-menu').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Продвинутый Кликер CS2</title>
+<style>
+    body {
+        background: #111;
+        color: #fff;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 50px;
+        overflow-x: hidden;
+    }
+
+    #score {
+        font-size: 48px;
+        margin-bottom: 20px;
+        position: relative;
+    }
+
+    button {
+        font-size: 24px;
+        padding: 15px 30px;
+        margin: 10px;
+        cursor: pointer;
+        border-radius: 10px;
+        border: none;
+        transition: transform 0.1s, background 0.3s;
+    }
+
+    /* Кнопка-картинка теперь прозрачная */
+    #click-button {
+        width: 500px;
+        cursor: pointer;
+        transition: transform 0.1s;
+        display: block;
+    }
+
+    #click-button:active {
+        transform: scale(0.9);
+    }
+
+    .upgrade {
+        background: #00c0f0;
+        color: #fff;
+    }
+
+    .autoclicker {
+        background: #f05a00;
+        color: #fff;
+    }
+
+    .floating {
+        position: absolute;
+        font-size: 24px;
+        color: yellow;
+        animation: floatUp 1s ease-out forwards;
+        pointer-events: none;
+    }
+
+    @keyframes floatUp {
+        0% { opacity: 1; transform: translateY(0); }
+        100% { opacity: 0; transform: translateY(-50px); }
+    }
+
+    .progress-container {
+        width: 300px;
+        height: 20px;
+        background: #333;
+        border-radius: 10px;
+        margin: 10px auto;
+        overflow: hidden;
+    }
+
+    .progress-bar {
+        height: 100%;
+        background: #0f0;
+        width: 0%;
+        transition: width 0.3s;
+    }
+</style>
+</head>
+<body>
+
+<h1>Продвинутый Кликер CS2</h1>
+<div id="balance">КАЛАБАНКОИНЫ: <span id="coins">{{ coins if coins is not none else 0 }}</span></div>
+<div id="score">0</div>
+<div style="margin:10px 0; opacity:0.8; font-size:14px;">Локальные очки — только для визуала. Баланс — сверху.</div>
+
+<!-- Апгрейды -->
+<button id="upgrade-button" class="upgrade">Улучшение (+5 за клик) | Стоимость: 50</button>
+<button id="autoclicker-button" class="autoclicker">Автокликер (+1/сек) | Стоимость: 100</button>
+
+<!-- Прогрессбар -->
+<div class="progress-container">
+    <div class="progress-bar" id="progress-bar"></div>
+</div>
+
+<!-- Основная кнопка-картинка -->
+<div id="click-container" style="text-align:center; margin: 20px 0;">
+    <img id="click-button" src="{{ url_for('static', filename='images/my-click-button.png') }}" alt="Клик" style="display:inline-block;">
+</div>
+
+<script>
+let score = 0;
+let clickValue = 1 + ({{ click_level if click_level is not none else 0 }} * 5);
+let autoClickValue = {{ autoclickers if autoclickers is not none else 0 }};
+const upgradeCost = 50;
+const autoClickCost = 100;
+
+const scoreEl = document.getElementById('score');
+const coinsEl = document.getElementById('coins');
+const clickBtn = document.getElementById('click-button');
+const upgradeBtn = document.getElementById('upgrade-button');
+const autoClickBtn = document.getElementById('autoclicker-button');
+const progressBar = document.getElementById('progress-bar');
+
+// Добавление очков с анимацией
+function addScore(amount) {
+    score += amount;
+    scoreEl.textContent = score;
+
+    const floatEl = document.createElement('div');
+    floatEl.textContent = `+${amount}`;
+    floatEl.className = 'floating';
+    const rect = scoreEl.getBoundingClientRect();
+    floatEl.style.left = (scoreEl.offsetWidth/2 - 20 + Math.random()*40) + 'px'; // центрируем над счетом
+    scoreEl.appendChild(floatEl);
+
+    setTimeout(() => floatEl.remove(), 1000);
+
+    updateProgress();
+}
+
+// Клик по основной кнопке (добавляет очки и серверные монеты)
+clickBtn.addEventListener('click', () => {
+    addScore(clickValue);
+    syncCoins(clickValue);
+    playRandomClickSound(); // <-- воспроизведение случайного звука
+});
+
+async function fetchCoins() {
+    try {
+        const res = await fetch('/api/coins');
+        if (!res.ok) return;
+        const data = await res.json();
+        if (data.ok) {
+            coinsEl.textContent = data.coins;
+        }
+    } catch(e) {}
+}
+
+async function syncCoins(delta) {
+    try {
+        const res = await fetch('/api/click', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ amount: delta })
+        });
+        if (!res.ok) return { ok: false };
+        const data = await res.json();
+        if (data.ok) {
+            coinsEl.textContent = data.coins;
+        }
+        return data;
+    } catch (e) { return { ok: false }; }
+}
+
+// Улучшение клика — списываем с общего баланса монет
+upgradeBtn.addEventListener('click', async () => {
+    // Покупаем на сервере и сохраняем прогресс
+    const res = await fetch('/api/buy_upgrade', { method: 'POST' });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !data.ok) {
+        alert(data.error === 'not_enough_coins' ? 'Недостаточно КАЛАБАНКОИНОВ!' : 'Ошибка покупки');
+        return;
+    }
+    coinsEl.textContent = data.coins;
+    // Каждое улучшение добавляет +5 к клику
+    clickValue = 1 + (data.click_level * 5);
+    upgradeBtn.textContent = `Улучшение (+${clickValue} за клик) | Стоимость: ${upgradeCost}`;
+});
+
+// Покупка автокликера — списываем с общего баланса монет
+autoClickBtn.addEventListener('click', async () => {
+    const res = await fetch('/api/buy_autoclicker', { method: 'POST' });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !data.ok) {
+        alert(data.error === 'not_enough_coins' ? 'Недостаточно КАЛАБАНКОИНОВ!' : 'Ошибка покупки');
+        return;
+    }
+    coinsEl.textContent = data.coins;
+    autoClickValue = data.autoclickers;
+});
+
+// Автокликер каждые 1 секунду
+setInterval(() => {
+    if (autoClickValue > 0) {
+        addScore(autoClickValue);
+        syncCoins(autoClickValue);
+    }
+}, 1000);
+
+// Инициализируем баланс при загрузке
+fetchCoins();
+
+// Прогрессбар
+function updateProgress() {
+    let percent = Math.min(score / 200 * 100, 100);
+    progressBar.style.width = percent + '%';
+}
+    // список звуков для клика
+const clickSounds = [
+    "{{ url_for('static', filename='audio/sound1.mp3') }}",
+    "{{ url_for('static', filename='audio/sound2.mp3') }}",
+    "{{ url_for('static', filename='audio/sound3.mp3') }}",
+    "{{ url_for('static', filename='audio/sound4.mp3') }}",
+    "{{ url_for('static', filename='audio/sound5.mp3') }}",
+    "{{ url_for('static', filename='audio/sound6.mp3') }}"
+];
+
+function playRandomClickSound() {
+    const soundFile = clickSounds[Math.floor(Math.random() * clickSounds.length)];
+    const audio = new Audio(soundFile);
+    audio.currentTime = 0;
+    audio.play().catch(err => console.log("Звук не воспроизведён:", err));
+}
+</script>
+
+
+</body>
+</html>

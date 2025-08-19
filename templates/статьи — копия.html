@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Майский без Монтажа - Шаблон сайта</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #eee;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            margin: 0 10px;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        .articles {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .article {
+            width: 30%;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .article img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px 5px 0 0;
+        }
+
+        .article h2 {
+            margin-top: 10px;
+        }
+
+        .article p {
+            margin-top: 5px;
+        }
+
+        .article a {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #333;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Майский без Монтажа</h1>
+    </header>
+    <nav>
+        <a href="#">Главная</a>
+        <a href="#">Мемы</a>
+        <a href="#">Розыгрыши</a>
+        <a href="#">Акции</a>
+        <a href="articles.html">Статьи</a> 
+        <a href="#">Контакты</a>
+        <a href="#">Предложения</a>
+    </nav>
+
+    <main>
+        <div class="container">
+            <div class="articles">
+                <div class="article">
+                    <img src="article1_image.jpg" alt="Фото к статье 1">
+                    <h2>Название статьи 1</h2>
+                    <p>Краткое описание статьи 1. Lorem ipsum dolor sit amet...</p>
+                    <a href="article1.html">Подробнее</a>
+                </div>
+                <div class="article">
+                    <img src="article2_image.jpg" alt="Фото к статье 2">
+                    <h2>Название статьи 2</h2>
+                    <p>Краткое описание статьи 2. Lorem ipsum dolor sit amet...</p>
+                    <a href="article2.html">Подробнее</a>
+                </div>
+                <div class="article">
+                    <img src="article3_image.jpg" alt="Фото к статье 3">
+                    <h2>Название статьи 3</h2>
+                    <p>Краткое описание статьи 3. Lorem ipsum dolor sit amet...</p>
+                    <a href="article3.html">Подробнее</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <!-- Подвал сайта -->
+    </footer>
+</body>
+</html>

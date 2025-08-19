@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Майский без Монтажа - Шаблон сайта</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #333;
+            background-image: url('BvVEfgjzHUo.jpg');
+            background-size: cover; 
+            background-repeat: no-repeat;
+        }
+
+        h1 {
+            text-shadow: 3px 3px 0px #000; 
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            background-image: url('S1RDBf86MqY.jpg'); 
+            background-size: cover; 
+            background-repeat: no-repeat; 
+        }
+
+        nav {
+            background-color: #333;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 5px;
+        }
+
+        nav a:hover {
+            background-color: #555;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        .articles {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .article {
+            width: 30%;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .article img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px 5px 0 0;
+        }
+
+        .article h2 {
+            margin-top: 10px;
+        }
+
+        .article p {
+            margin-top: 5px;
+        }
+
+        .article a {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #333;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        /* Блок новостей */
+        #news-section {
+            width: 100%;
+            margin-top: 40px;
+        }
+
+        #news-section h2 {
+            color: #fff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #news-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .news-item {
+            background-color: #444;
+            color: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            width: 80%;
+            text-align: left;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Майский без Монтажа</h1>
+    </header>
+
+    <nav>
+        <a href="Версия.1.5.html">Главная</a>
+        <a href="Розыгрыши.html" id="Розыгрыши">Розыгрыши</a>
+        <a href="статьи.html" id="статьи">Статьи</a>
+        <a href="https://web.telegram.org/k/#-1899308292" target="_blank">Группа</a>
+        <a href="https://web.telegram.org/k/#@mayskiy_predlozhka_bot" target="_blank">Предложения</a>
+    </nav>
+
+    <main>
+        <div class="container">
+
+            <!-- Существующие статьи -->
+            <div class="articles">
+                <div class="article">
+                    <img src="static/images/ISRfmof0MJc.jpg" alt="Фото к статье 1">
+                    <h2>ЧВК "Калабан". Че это было!?</h2>
+                    <p>ЧВК "Калабан". Че это было!?</p>
+                    <a href="article1.html">Подробнее</a>
+                </div>
+                <div class="article">
+                    <img src="static/images/jhV88ASKm6c.jpg" alt="Фото к статье 2">
+                    <h2>Мощные дебаты, такого вы не слышали!</h2>
+                    <p>Мощные дебаты, такого вы не слышали!</p>
+                    <a href="article2.html">Подробнее</a>
+                </div>
+                <div class="article">
+                    <img src="static/images/Ky3vonXXmbI.jpg" alt="Фото к статье 3">
+                    <h2>Проблема миграции. Способы решения.</h2>
+                    <p>Проблема миграции. Способы решения.</p>
+                    <a href="article3.html">Подробнее</a>
+                </div>
+            </div>
+
+            <!-- Новый блок новостей -->
+            <div id="news-section">
+                <h2>Новости дня</h2>
+                <div id="news-container">
+                    <!-- Новости подставляются скриптом -->
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <!-- Подвал сайта -->
+    </footer>
+
+    <script>
+        async function loadNews() {
+            try {
+                const res = await fetch('news.json');
+                const data = await res.json();
+                const container = document.getElementById('news-container');
+                container.innerHTML = '';
+
+                data.news.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'news-item';
+                    div.textContent = item;
+                    container.appendChild(div);
+                });
+            } catch (e) {
+                console.error("Ошибка загрузки новостей:", e);
+            }
+        }
+
+        loadNews();
+    </script>
+</body>
+</html>
