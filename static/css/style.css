@@ -305,3 +305,35 @@ footer {
 .burger-menu.active {
     display: flex;
 }
+<style>
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #ff4d4d;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    display: none;
+    z-index: 1000;
+    font-weight: bold;
+}
+</style>
+.leaderboard {
+    list-style: decimal;
+    padding-left: 20px;
+}
+
+.leaderboard li {
+    padding: 6px 0;
+    font-size: 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+.leaderboard {
+    padding-left: 20px;
+}
+
+.leaderboard li {
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}

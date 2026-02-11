@@ -58,6 +58,8 @@
             background-size: cover;
             background-repeat: no-repeat;
         }
+
+
         .service {
             width: 100%;
             min-height: 60px;
@@ -206,6 +208,20 @@
                     <p>Майский разработан на основе всем известного Мема про Кубинца</p>
                     <button id="bibubbe">Би-бу-бэ-би-би-бу-бу</button>
                 </div>
+                <div class="post-header">
+    <h2>🏆 Топ 10 по калабанкоинам</h2>
+</div>
+
+<div class="post-body">
+    <ol class="leaderboard">
+        {% for u in top_users %}
+            <li>
+                <strong>{{ u['username'] }}</strong> — {{ u['coins'] }} 💰
+            </li>
+        {% endfor %}
+    </ol>
+</div>
+
             </div>
         </div>
     </main>

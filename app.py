@@ -43,14 +43,23 @@ ensure_schema()
 # Главная страница
 @app.route('/')
 def index():
-    username = session.get('username')
-    coins = None
-    if username:
-        conn = get_db_connection()
-        row = conn.execute('SELECT coins FROM users WHERE username = ?', (username,)).fetchone()
-        conn.close()
-        coins = row['coins'] if row else 0
-    return render_template('index22.html', user=username, coins=coins)
+    conn = get_db_connection()
+
+    top_users = conn.execute("""
+        SELECT username, coins 
+        FROM users 
+        ORDER BY coins DESC 
+        LIMIT 10
+    """).fetchall()
+
+    conn.close()
+
+    return render_template(
+        "index22.html",
+        top_users=top_users,
+        user=session.get("username")
+    )
+
 
 # Логин
 @app.route('/login', methods=['GET', 'POST'])

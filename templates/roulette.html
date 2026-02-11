@@ -23,8 +23,14 @@
 </div>
 
 <div style="text-align:center;">
-  <button id="start-roulette" style="padding:10px 20px; margin-top:50; cursor:pointer; font-weight:bold;">СТАРТ (1000)</button>
-  </div>
+  <button id="start-roulette"
+          style="padding:10px 20px; margin-top:50px; cursor:pointer; font-weight:bold;">
+    СТАРТ (1000)
+  </button>
+</div>
+
+<div id="notification" class="notification"></div>
+
 
         </div>
     </main>
@@ -36,6 +42,40 @@
 
     <script src="static/js/roulette.js"></script>
 <audio id="win-sound" src="{{ url_for('static', filename='audio/win.mp3') }}"></audio>
+<script>
+document.getElementById("start-roulette").addEventListener("click", async () => {
+
+    const response = await fetch("/api/spin_start", {
+        method: "POST",
+        credentials: "include"
+    });
+
+    if (response.status === 401) {
+        showNotification("Нужно авторизоваться!");
+        return;
+    }
+
+    const data = await response.json();
+
+    if (!data.ok) {
+        showNotification("Ошибка: " + data.error);
+        return;
+    }
+
+    // если всё ок — продолжай логику рулетки
+    showNotification("Рулетка запущена!");
+});
+
+function showNotification(message) {
+    const notif = document.getElementById("notification");
+    notif.textContent = message;
+    notif.style.display = "block";
+
+    setTimeout(() => {
+        notif.style.display = "none";
+    }, 3000);
+}
+</script>
 
 </body>
 </html>
