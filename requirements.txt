@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+Flask==2.3.2
+gunicorn==20.1.0
+setuptools>=65.0.0
+=======
 ﻿Flask==3.1.1
 gunicorn==23.0.0
 setuptools==78.1.0
+>>>>>>> a560a525049029d39595208949286dbc2daed182
